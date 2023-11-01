@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block section %}
+    <h2 class="text-center">Eliminar Selección</h2>
+    <hr>
+{% endblock section %}
+
+{% block maincontent %}
+    <form action="{% url 'selection-delete' object.pk %}" method="post">
+        {% csrf_token %}
+        <p>¿Estás seguro de que deseas eliminar la selección "{{ object.name }}"?</p>
+        <input type="submit" value="Confirmar" class="btn btn-danger" />
+        <a href="{% url 'selection-list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+{% endblock maincontent %}

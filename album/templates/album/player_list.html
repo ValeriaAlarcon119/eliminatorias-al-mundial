@@ -3,32 +3,43 @@
 {% load static %}
 
 {% block section %}
-    <h2>Player</h2>
+    <h2 class="text-center text-success">Player</h2>
     <hr>
 {% endblock section %}
 
 {% block maincontent %}
-    <div class="row well">
-        {% for p in object_list.all %}
-            <div class="col-md-3 well">
-                <div class="panel panel-primary">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">{{ p.first_name }} {{ p.last_name }}</h3>
-                    </div>
-                    <div class="panel-body" align="center">
-                        <a href="{% url "player-detail" p.id %}">
-                            <img src="{% static p.photo.url %}" style="width:170px;height:200px;"/>
-                        </a>
-                    </div>
-                    <div class="panel-footer">
-                        {% if p.comment %}
-                            {{ p.comment }}
-                        {% else %}
-                            <a href="{% url "player-update" p.id %}">edit comments</a>
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-        {% endfor %}
+    <div class="container mt-3">
+        <table class="table table-bordered table-striped text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Name</th>
+                    <th style="width: 30%;">Comments</th>
+                    <th style="width: 50%;">Photo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in object_list.all %}
+                    <tr>
+                        <td>{{ p.first_name }} {{ p.last_name }}</td>
+                        <td>
+                            {% if p.comment %}
+                                {{ p.comment }}
+                            {% else %}
+                                <a href="{% url "player-update" p.id %}" class="text-success">Edit Comments</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <a href="{% url "player-detail" p.id %}">
+                                <img src="{% static p.photo.url %}" class="img-fluid" style="width: 210px; height: 180px;" alt="{{ p.first_name }} {{ p.last_name }}"/>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-3 text-center">
+        <a href="{% url 'player-create' %}" class="btn btn-success">Agregar Jugador</a>
     </div>
 {% endblock maincontent %}

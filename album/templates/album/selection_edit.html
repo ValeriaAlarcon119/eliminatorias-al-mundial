@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block section %}
+    <h2 class="text-center">Editar Selección</h2>
+    <hr>
+{% endblock section %}
+
+{% block maincontent %}
+    <div class="container">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </form>
+    </div>
+{% endblock maincontent %}

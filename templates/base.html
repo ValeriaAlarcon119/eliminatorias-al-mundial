@@ -1,5 +1,11 @@
 {% extends 'adminlte/base.html' %}
 
+{% load static %}
+
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
 {% block title %}Album Eliminatorias Mundial 20263{% endblock %}
 {% block bodyclass %} skin-red {% endblock %}
 {% block content %}
@@ -9,7 +15,30 @@
     </div>
     <div class="container">
         {% block maincontent %}
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped text-center">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Shield</th>
+                            <th>Team</th>
+                            <th>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in object_list %}
+                            <tr>
+                                <td><img src="{% static c.shield.url %}" class="img-fluid" alt="Shield"></td>
+                                <td><img src="{% static c.team.url %}" class="img-fluid" alt="Team"></td>
+                                <td>
+                                    <a href="{% url 'selection-detail' c.pk %}">
+                                        {{ c.name }}
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         {% endblock maincontent %}
     </div>
-  
-{% endblock %}
+{% endblock content %}

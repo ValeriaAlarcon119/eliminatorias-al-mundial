@@ -1,19 +1,47 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block section %}
- <h2>Selections</h2>
- <hr>
+    <h2 class="text-center">Selecciones - Eliminatorias a Mundial de Fútbol 2026</h2>
+    <hr>
 {% endblock section %}
 
 {% block maincontent %}
-   <div>
+    <div class="container">
+        <table class="table table-bordered table-striped text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Escudo</th>
+                    <th>equipo</th>
+                    <th>Nombre</th>
+                    <th>Acciones</th> 
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in object_list %}
+                    <tr>
+                        <td><img src="{% static c.shield.url %}" style="width: 220px; height: 150px;" alt="Shield"></td>
+                        <td><img src="{% static c.team.url %}" style="width: 220px; height: 150px;" alt="Team"></td>
+                        <td>
+                            <a href="{% url 'selection-detail' c.pk %}">
+                                {{ c.name }}
+                            </a>
+                        </td>
+                        <td>
+                            <a href="{% url 'selection-update' c.pk %}" class="btn btn-primary">
+                                <i class="fas fa-pencil-alt"></i>
+                            </a>
+                            <a href="{% url 'selection-delete' c.pk %}" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> 
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-      {% for c in object_list %}
-         <h2><img src="{% static c.shield.url %}" style="width:70px;height:80px"/>
-         <img src="{% static c.team.url %}" style="width:140px;height:80px"/>
-         <a href="{% url 'selection-detail' c.pk %}">
-              {{ c.name }} <br>
-         </a></h2>
-      {% endfor %}
- </div>
+    <div class="container mt-3 text-center">
+        <a href="{% url 'selection-create' %}" class="btn btn-success">Agregar otra selección</a>
+    </div>
 {% endblock maincontent %}
